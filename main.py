@@ -7,27 +7,6 @@ import random,os,tempfile,smtplib
 #?functionality
 #!Clear Button Function
 def clear():
-    bathsoapEntry.insert(0,0)
-    facecreamEntry.insert(0,0)
-    facewashEntry.insert(0,0)
-    hairsprayEntry.insert(0,0)
-    hairgelEntry.insert(0,0)
-    bodylotionEntry.insert(0,0)
-
-    riceEntry.insert(0,0)
-    oilEntry.insert(0,0)
-    coffeeEntry.insert(0,0)
-    teaEntry.insert(0,0)
-    sugarEntry.insert(0,0)
-    wheatEntry.insert(0,0)
-
-    maazaEntry.insert(0,0)
-    pepisEntry.insert(0,0)
-    dewEntry.insert(0,0)
-    fantaEntry.insert(0,0)
-    cokeEntry.insert(0,0)
-    spriteEntry.insert(0,0)
-
     bathsoapEntry.delete(0,END)
     facecreamEntry.delete(0,END)
     facewashEntry.delete(0,END)
@@ -48,6 +27,27 @@ def clear():
     fantaEntry.delete(0,END)
     cokeEntry.delete(0,END)
     spriteEntry.delete(0,END)
+
+    bathsoapEntry.insert(0,0)
+    facecreamEntry.insert(0,0)
+    facewashEntry.insert(0,0)
+    hairsprayEntry.insert(0,0)
+    hairgelEntry.insert(0,0)
+    bodylotionEntry.insert(0,0)
+
+    riceEntry.insert(0,0)
+    oilEntry.insert(0,0)
+    coffeeEntry.insert(0,0)
+    teaEntry.insert(0,0)
+    sugarEntry.insert(0,0)
+    wheatEntry.insert(0,0)
+
+    maazaEntry.insert(0,0)
+    pepisEntry.insert(0,0)
+    dewEntry.insert(0,0)
+    fantaEntry.insert(0,0)
+    cokeEntry.insert(0,0)
+    spriteEntry.insert(0,0)
 
     cosmetictaxEntry.delete(0,END)
     grocerytaxEntry.delete(0,END)
@@ -124,7 +124,7 @@ def send_email():
         sendButton=Button(root1,text="SEND",font=('arial',16,'bold'),width=15,command=send_gmail)
         sendButton.grid(row=2,column=0,pady=20)
 
-        root1=mainloop()    
+        root1.mainloop()
 """
 #? Print Function
 #!This block of code is to able print on Windows operating system
@@ -162,6 +162,7 @@ def print_bill():
 
 #* Search Bill Function
 def search_bill():
+    found = False
     for i in os.listdir('bills/'):
         if i.split('.')[0]==billnumberEntry.get():
             f=open(f'bills/{i}','r')
@@ -169,9 +170,10 @@ def search_bill():
             for data in f:
                 textarea.insert(END,data)
             f.close()
+            found = True
             break
-        else:
-            messagebox.showerror('Error','Invalid Bill Number')        
+    if not found:
+        messagebox.showerror('Error','Invalid Bill Number')
 
 if not os.path.exists('bills'):
     os.mkdir('bills')
@@ -215,7 +217,7 @@ def bill_area():
         if facewashEntry.get()!='0':
             textarea.insert(END,f'Face Wash\t\t\t{facewashEntry.get()}\t\t\t{facewashprice}GHS\n')
         if hairsprayEntry.get()!='0':
-            textarea.insert(END,f'Face Wash\t\t\t{hairsprayEntry.get()}\t\t\t{hairsprayprice}GHS\n')    
+            textarea.insert(END,f'Hair Spray\t\t\t{hairsprayEntry.get()}\t\t\t{hairsprayprice}GHS\n')
         if hairgelEntry.get()!='0':
             textarea.insert(END,f'Hair Gel\t\t\t{hairgelEntry.get()}\t\t\t{hairgelprice}GHS\n')
         if bodylotionEntry.get()!='0':
@@ -317,7 +319,7 @@ def total():
 
 #! GUI Port
 root=Tk()
-root.title("Reatail Billing System")
+root.title("Retail Billing System")
 root.geometry("1350x820")
 root.iconbitmap('')
 headingLabel=Label(root,text="Retail Billing System v1.1",font=('times new roman',30,'bold'),bg='gray20',fg='gold',bd=12,relief=GROOVE)
